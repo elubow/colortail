@@ -1,6 +1,8 @@
 = colortail
 
-Description goes here.
+ColorTail provides a cool way for you to configure how logfiles (or any other files for that matter) look when you tail them.
+
+
 
 == Note on Patches/Pull Requests
  
