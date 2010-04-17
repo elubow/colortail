@@ -1,0 +1,6 @@
+2010-04-14 12:51:21,088 NONE     Starting new creation process
+2010-04-15 02:18:12,693 ERROR    Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'yes''' at line 1
+2010-04-15 12:51:21,088 DEBUG    Debugging enabled
+2010-04-15 12:51:21,123 INFO     Creating new File
+2010-04-15 12:51:21,242 CRITICAL Cannot proceed without -F/--force option
+2010-04-15 12:52:27,852 EMERGENCY Shutting down immediately
