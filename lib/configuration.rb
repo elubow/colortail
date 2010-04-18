@@ -2,12 +2,12 @@ module ColorTail
 
     class Configuration
         def initialize(conf)
+            @config_file = conf
             if File.exists?(conf)
-                require conf
+                @config = File.read(conf)
             else
                 raise FileDoesNotExist, "Config file #{file} cannot be found."
             end
-            puts "Config File output: #{conf}\n"
         end
 
         def colorit(groupings)
@@ -19,6 +19,13 @@ module ColorTail
             else
                 raise 
             end
+        end
+
+        # Load everything from the config file here since the colorit() method
+        # isn't available in the configuration object until after a new object
+        # has been instantiated.
+        def load_opts
+            self.instance_eval( @config, @config_file )
         end
     end
 

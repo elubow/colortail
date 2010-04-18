@@ -20,8 +20,8 @@ module ColorTail
     
                begin
                    # Read the config file
-                   puts "Config: #{options[:conf]}\n"
                    config = ColorTail::Configuration.new(options[:conf])
+                   config.load_opts
 
                    logger = ColorTail::Colorize.new(config)
     
