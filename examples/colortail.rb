@@ -4,8 +4,7 @@ require 'colortail'
 Groupings = {
 
   # This default matching scheme
-  default = [
-  ],
+  default = [],
   
   # Matchers for syslog
   syslog = [ 
