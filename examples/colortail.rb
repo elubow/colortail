@@ -1,16 +1,24 @@
 require 'rubygems'
-require 'color-tail'
+require 'colortail'
 
-# This default matching scheme
-default = [
-]
+Groupings = {
 
-# Matchers for syslog
-syslog = [ 
-    { :match => /EMERGENCY/,    :color => :red,     :attribute => :reverse },
-    { :match => /FATAL/,        :color => :red,     :attribute => :bright },
-    { :match => /CRITICAL/,     :color => :red },
-    { :match => /DEBUG/,        :color => :green },
-    { :match => /ERROR/,        :color => :green },
-    { :match => /INFO/,         :color => :none }
-]
+  # This default matching scheme
+  default = [
+  ],
+  
+  # Matchers for syslog
+  syslog = [ 
+      { :match => /EMERGENCY/,    :color => :red,     :attribute => :reverse },
+      { :match => /FATAL/,        :color => :red,     :attribute => :bright },
+      { :match => /CRITICAL/,     :color => :red },
+      { :match => /DEBUG/,        :color => :green },
+      { :match => /ERROR/,        :color => :green },
+      { :match => /INFO/,         :color => :none },
+      { :match => /WARN/,         :color => :yellow }
+  ]
+
+}
+
+# Needs to be here to load up all your groupings
+colorit( Groupings )

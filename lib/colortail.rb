@@ -2,6 +2,7 @@ require 'rubygems'
 require 'file/tail'
 
 require 'application'
+require 'configuration'
 
 module ColorTail
     class Colorize
@@ -51,8 +52,8 @@ module ColorTail
                 current_color = COLORS[color]
                 current_attribute = ATTRIBUTES[attribute]
 
-                line_prefix = colorize(line_prefix.to_s, current_color, current_attribute, nil) unless line_prefix.nil?
-                show(colorize(message, current_color, current_attribute), line_prefix)
+                line_prefix = colorit(line_prefix.to_s, current_color, current_attribute, nil) unless line_prefix.nil?
+                show(colorit(message, current_color, current_attribute), line_prefix)
             end
         end
 
@@ -60,7 +61,7 @@ module ColorTail
             puts "#{prefix}#{message}"
         end
     
-        def colorize(message, color, attribute, nl = "\n")
+        def colorit(message, color, attribute, nl = "\n")
             attribute = "#{attribute};" if attribute
             "\e[#{attribute}#{color}m" + message.strip + "\e[0m#{nl}"
         end
