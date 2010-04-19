@@ -22,18 +22,21 @@ module ColorTail
                    # Read the config file if it exists
                    if File.exists?(options[:conf])
                        config = ColorTail::Configuration.new(options[:conf])
-                       match_group = config.load_opts(options[:group])
+                       @match_group = config.load_opts(options[:group])
+                   else
+                       # Create this to ensure we always have a value for this array
+                       @match_group = Array.new
+                   end
     
-                       logger = ColorTail::Colorize.new()
-    
-                       # Add the color match array
-                       if match_group.class == Array
-                           match_group.each do |matcher|
-                               logger.add_color_matcher( matcher )
-                           end
-                       else
-                           logger.add_color_matcher( match_group )
+                   logger = ColorTail::Colorize.new()
+
+                   # Add the color match array if we aren't using the default
+                   if @match_group.class == Array
+                       @match_group.each do |matcher|
+                           logger.add_color_matcher( matcher )
                        end
+                   else
+                       logger.add_color_matcher( @match_group )
                    end
     
     
