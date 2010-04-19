@@ -4,10 +4,10 @@ require 'colortail'
 Groupings = {
 
   # This default matching scheme
-  default = [],
+  'default' => [],
   
   # Matchers for syslog
-  syslog = [ 
+  'syslog' => [ 
       { :match => /EMERGENCY/,    :color => :red,     :attribute => :reverse },
       { :match => /FATAL/,        :color => :red,     :attribute => :bright },
       { :match => /CRITICAL/,     :color => :red },
@@ -18,6 +18,3 @@ Groupings = {
   ]
 
 }
-
-# Needs to be here to load up all your groupings
-colorit( Groupings )
