@@ -14,7 +14,7 @@ module ColorTail
                end
     
                if options[:help]
-                   $stderr.puts options.opts
+                   $stderr.puts opt.opts
                    return 1
                end
     

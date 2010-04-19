@@ -68,9 +68,8 @@ module ColorTail
                 end
 
                 options[:help] = false
-                o.on( '-h', '--help', 'Display this help screen' ) do
+                o.on_tail( '-h', '--help', 'Display this help screen' ) do
                     options[:help] = true
-                    exit
                 end
             end
 
