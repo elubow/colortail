@@ -1,5 +1,6 @@
 * General
-  * Added multithreading to allow for tailing multiple files simultaneously
+  * Allow different groupings per file
+  * Allow multiple color groupings per file
 
 * Add Testing
 

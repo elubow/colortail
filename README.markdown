@@ -21,13 +21,17 @@ The standard configuration file is **.colortailrc**.  It needs to be in the form
 
 ## Usage ##
 
-Using ColorTail is similar to using tail. The main assumption is that you will always be _indefinitely_ tail'ing a file. Currently ColorTail only allows for tailing 1 file.
+Using ColorTail is similar to using tail. The main assumption is that you will always be _indefinitely_ tail'ing a file.
 
 #### Tailing with groups
 
 The command below will tail the **/var/log/messages** file using the syslog group. The example config **examples/colortail.rb** shows a _syslog_ grouping that is used in command below:
 
    # colortail -g syslog /var/log/messages
+
+## Caveats and Intended Behaviors ##
+
+ColorTail intentionally does not die when a file specified on the command line doesn't exist.
 
 ## Author ##
 
