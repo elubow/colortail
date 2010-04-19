@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
      "TODO.markdown",
      "VERSION",
      "bin/colortail",
+     "colortail.gemspec",
      "examples/colortail.rb",
      "examples/test.log",
      "lib/colortail.rb",
