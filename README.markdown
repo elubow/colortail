@@ -17,9 +17,11 @@ By default, ColorTail does absolutely nothing other than just tail a file normal
 
 Configuring ColorTail is easy.  In your home directory, create a file .colortailrc.  This file will contain a group of ruby arrays similar to the ones laid out in the [example config](http://codaset.com/elubow/colortail/examples/colortail.rb).  These arrays are called groups.  Any group can be loaded via the command line using the **-g** switch (more on this below).
 
+The standard configuration file is **.colortailrc**.  It needs to be in the format of a Ruby hash.
+
 ## Usage ##
 
-Using ColorTail is similar to using tail. The main assumption is that you will always be _indefinitely_ tail'ing a file.
+Using ColorTail is similar to using tail. The main assumption is that you will always be _indefinitely_ tail'ing a file. Currently ColorTail only allows for tailing 1 file.
 
 #### Tailing with groups
 
