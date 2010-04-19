@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'thread'
 require 'file/tail'
 
 dir = File.dirname(__FILE__) + '/colortail'
