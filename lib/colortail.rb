@@ -1,8 +1,10 @@
 require 'rubygems'
 require 'file/tail'
 
-require 'application'
-require 'configuration'
+dir = File.dirname(__FILE__)
+
+require dir + '/application'
+require dir + '/configuration'
 
 module ColorTail
     class Colorize
@@ -31,15 +33,12 @@ module ColorTail
 
         def log(filename, message, line_prefix=nil)
             # Add the filename to the message
-            message = "#{filename}: #{message}"
+            message = "#{message}"
 
             color = :none
             attribute = nil
 
-            # Sort matchers in reverse order so we can break if we found a match.
-            @@sorted_color_matchers ||= @@color_matchers.sort_by { |i| -i[:prio] }
-
-            @@sorted_color_matchers.each do |filter|
+            @@color_matchers.each do |filter|
                 if message =~ filter[:match]
                         color = filter[:color]
                         attribute = filter[:attribute]

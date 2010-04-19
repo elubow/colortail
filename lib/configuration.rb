@@ -10,22 +10,25 @@ module ColorTail
             end
         end
 
-        def colorit(groupings)
+        def colorit(group, groupings)
             if groupings.class == Hash
-                groupings.keys do |group|
-                    puts "Group Key ID: #{group}\n"
-                    ColorTail::Colorize.add_color_matcher( group )
+                if groupings.has_key?( group )
+                    return groupings[group]
+                else
+                    raise ComplexRecord, "No such group '#{gruop}' in config file"
                 end
             else
-                raise 
+                raise ComplexRecord, "Config file syntax error"
             end
         end
 
         # Load everything from the config file here since the colorit() method
         # isn't available in the configuration object until after a new object
         # has been instantiated.
-        def load_opts
-            self.instance_eval( @config, @config_file )
+        def load_opts(group)
+            require @config_file
+            colorset = self.colorit( group, Groupings )
+            return colorset
         end
     end
 
@@ -49,7 +52,7 @@ module ColorTail
                 o.banner = "Usage: #{File.basename($0)} <file>"
             
                 options[:group] = 'default'
-                o.on( '-g', '--group', 'Specify the color grouping to use for these files' ) do |group|
+                o.on( '-g', '--group <group>', 'Specify the color grouping to use for these files' ) do |group|
                     options[:group] = group
                 end
 

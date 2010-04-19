@@ -21,17 +21,19 @@ module ColorTail
                begin
                    # Read the config file
                    config = ColorTail::Configuration.new(options[:conf])
-                   config.load_opts
+                   match_group = config.load_opts(options[:group])
 
-                   logger = ColorTail::Colorize.new(config)
-    
-                   files = []
-    
-                   options[:files].each do |file|
-                       if File.exists?(file)
-                           files.push(file)
+                   logger = ColorTail::Colorize.new()
+
+                   # Add the color match array
+                   if match_group.class == Array
+                       match_group.each do |matcher|
+                           logger.add_color_matcher( matcher )
                        end
+                   else
+                       logger.add_color_matcher( match_group )
                    end
+    
     
                    # XXX TODO Just tail the first file
                    tailer = ColorTail::TailFile.new( files[0] )
