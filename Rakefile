@@ -9,7 +9,7 @@ begin
     gem.summary = "Tail a file and color lines based on regular expressions within that line"
     gem.description = "Tail a file and color lines based on regular expressions within that line"
     gem.email = "eric@lubow.org"
-    gem.homepage = "http://codaset.com/elubow/color-tail"
+    gem.homepage = "http://codaset.com/elubow/colortail"
     gem.authors = ["Eric Lubow"]
     gem.add_dependency 'file-tail'
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
