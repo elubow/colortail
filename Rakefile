@@ -7,7 +7,7 @@ begin
     gem.name = "colortail"
     gem.executables = "colortail"
     gem.summary = "Tail a file and color lines based on regular expressions within that line"
-    gem.description = "Tail a file and color lines based on regular expressions within that line"
+    gem.description = "Tail a file and color lines based on regular expressions within that line. By setting up multiple expression and color groups in the configuration file, you can apply highlighting to a file while its being tailed."
     gem.email = "eric@lubow.org"
     gem.homepage = "http://codaset.com/elubow/colortail"
     gem.authors = ["Eric Lubow"]
