@@ -26,8 +26,11 @@ module ColorTail
         # isn't available in the configuration object until after a new object
         # has been instantiated.
         def load_opts(group)
-            require @config_file
-            colorset = self.colorit( group, Groupings )
+            colorset = []
+            if File.exists?(@config_file)
+                load @config_file
+                colorset = self.colorit( group, Groupings )
+            end
             return colorset
         end
     end
