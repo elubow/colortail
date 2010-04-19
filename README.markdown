@@ -32,6 +32,7 @@ The command below will tail the **/var/log/messages** file using the syslog grou
 ## Author ##
 
 Eric Lubow &lt;eric at lubow dot org&gt;
+
   * Web: [http://eric.lubow.org/](http://eric.lubow.org)
   * Twitter: [elubow](http://twitter.com/elubow)
 
