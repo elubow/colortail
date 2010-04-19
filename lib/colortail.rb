@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'file/tail'
 
-dir = File.dirname(__FILE__)
+dir = File.dirname(__FILE__) + '/colortail'
 
 require dir + '/application'
 require dir + '/configuration'
