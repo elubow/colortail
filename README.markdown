@@ -15,9 +15,36 @@ By default, ColorTail does absolutely nothing other than just tail a file normal
 
 ## Conifguring ColorTail ##
 
-Configuring ColorTail is easy.  In your home directory, create a file .colortailrc.  This file will contain a group of ruby arrays similar to the ones laid out in the example config **examples/colortail.rb**.  These arrays are called groups.  Any group can be loaded via the command line using the **-g** switch (more on this below).
+Configuring ColorTail is easy.  In your home directory, create a file .colortailrc.  This file will contain a group of ruby arrays similar to the ones laid out in the example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb).  These arrays are called groups.  Any group can be loaded via the command line using the **-g** switch (more on this below).
 
 The standard configuration file is **.colortailrc**.  It needs to be in the format of a Ruby hash.
+
+The full list of choices for colors and combinations are listed below.
+
+#### Colors ####
+
+ * none - Yes you can have no color.  This means display normally.
+ * black
+ * red
+ * green
+ * yellow
+ * blue
+ * magenta - (purple-ish)
+ * cyan
+ * white
+
+#### Attributes ####
+
+ * bright
+ * dim
+ * underscore
+ * blink
+ * reverse
+ * hidden - simply don't show the text
+
+### Configuration Example ###
+
+The example given in the configuration file is good for tailing a syslog file that has lines that are naemd with their syslog level. There are a lot of potential uses.  Check the wiki page of [example groupings](http://www.codaset.com/elubow/colortail/wiki/example-groupings) to see how others are using ColorTail.
 
 ## Usage ##
 
@@ -25,13 +52,18 @@ Using ColorTail is similar to using tail. The main assumption is that you will a
 
 #### Tailing with groups
 
-The command below will tail the **/var/log/messages** file using the syslog group. The example config **examples/colortail.rb** shows a _syslog_ grouping that is used in command below:
+The command below will tail the **/var/log/messages** file using the syslog group. The example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb) shows a _syslog_ grouping that is used in command below:
 
    # colortail -g syslog /var/log/messages
 
 ## Caveats and Intended Behaviors ##
 
 ColorTail intentionally does not die when a file specified on the command line doesn't exist.
+
+## Additionial Information ##
+
+  * Homepage: [http://www.codaset.com/elubow/colortail](http://www.codaset.com/elubow/colortail)
+  * Wiki: [Home](http://www.codaset.com/elubow/colortail/wiki)
 
 ## Author ##
 
