@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Eric Lubow"]
   s.date = %q{2010-04-19}
   s.default_executable = %q{colortail}
-  s.description = %q{Tail a file and color lines based on regular expressions within that line}
+  s.description = %q{Tail a file and color lines based on regular expressions within that line. By setting up multiple expression and color groups in the configuration file, you can apply highlighting to a file while its being tailed.}
   s.email = %q{eric@lubow.org}
   s.executables = ["colortail"]
   s.extra_rdoc_files = [
