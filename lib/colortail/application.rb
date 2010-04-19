@@ -39,13 +39,30 @@ module ColorTail
                        logger.add_color_matcher( @match_group )
                    end
     
+
+                   # Create a thread for each file
+                   threads = []
+                   files.each do |file|
+                       threads[files.index(file)] = Thread.new {
+                           tailer = ColorTail::TailFile.new( file )
     
-                   # XXX TODO Just tail the first file
-                   tailer = ColorTail::TailFile.new( files[0] )
-                   tailer.interval = 10
-                   tailer.backward( 10 )
-                   tailer.tail { |line|  logger.log( files[0], line ) }
+                           # First display the last 10 lines of each file in ARGV
+                           tailer.interval = 10
+                           tailer.backward( 10 )
+    
+                           # Tail the file and show new lines
+                           tailer.tail { |line|  logger.log( file, line ) }
+                       }
+                   end
+
+                   # Let the threads do their real work
+                   threads.each do |thread|
+                       thread.join
+                   end
+
                end
+
+               return 0
             end
         end
     end
