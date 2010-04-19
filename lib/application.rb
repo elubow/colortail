@@ -19,19 +19,21 @@ module ColorTail
                end
     
                begin
-                   # Read the config file
-                   config = ColorTail::Configuration.new(options[:conf])
-                   match_group = config.load_opts(options[:group])
-
-                   logger = ColorTail::Colorize.new()
-
-                   # Add the color match array
-                   if match_group.class == Array
-                       match_group.each do |matcher|
-                           logger.add_color_matcher( matcher )
+                   # Read the config file if it exists
+                   if File.exists?(options[:conf])
+                       config = ColorTail::Configuration.new(options[:conf])
+                       match_group = config.load_opts(options[:group])
+    
+                       logger = ColorTail::Colorize.new()
+    
+                       # Add the color match array
+                       if match_group.class == Array
+                           match_group.each do |matcher|
+                               logger.add_color_matcher( matcher )
+                           end
+                       else
+                           logger.add_color_matcher( match_group )
                        end
-                   else
-                       logger.add_color_matcher( match_group )
                    end
     
     
