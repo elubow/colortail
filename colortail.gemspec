@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{colortail}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Eric Lubow"]
-  s.date = %q{2010-04-19}
+  s.date = %q{2010-04-21}
   s.default_executable = %q{colortail}
   s.description = %q{Tail a file and color lines based on regular expressions within that line. By setting up multiple expression and color groups in the configuration file, you can apply highlighting to a file while its being tailed.}
   s.email = %q{eric@lubow.org}
