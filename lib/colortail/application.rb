@@ -39,7 +39,6 @@ module ColorTail
                        logger.add_color_matcher( @match_group )
                    end
     
-
                    # Create a thread for each file
                    threads = []
                    files.each do |file|
@@ -53,6 +52,7 @@ module ColorTail
                            # Tail the file and show new lines
                            tailer.tail { |line|  logger.log( file, line ) }
                        }
+                       threads[files.index(file)].run
                    end
 
                    # Let the threads do their real work
@@ -60,9 +60,20 @@ module ColorTail
                        thread.join
                    end
 
+               # If we get a CTRL-C, catch it (rescue) and send it for cleanup
+               rescue Interrupt
+                   cleanup(threads)
                end
 
                return 0
+            end
+
+            def cleanup(threads)
+                threads.each do |thread|
+                    thread.kill
+                end
+                $stderr.puts "Terminating..."
+                exit
             end
         end
     end
