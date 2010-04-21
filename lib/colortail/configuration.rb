@@ -35,7 +35,6 @@ module ColorTail
         end
 
         def display_match_groups()
-            puts "The following match groups are available through your config files:"
             Groupings.each_key do |group|
                 puts "  * #{group}"
             end

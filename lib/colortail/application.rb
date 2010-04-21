@@ -25,12 +25,18 @@ module ColorTail
                        @match_group = config.load_opts(options[:group])
                    else
                        # Create this to ensure we always have a value for this array
-                       @match_group = Array.push( 'default' => [] )
+                       @match_group = Array.new
+                       @match_group.push( 'default' => [] )
                    end
 
                    # Display the list of available groups and exit
                    if options[:list]
-                       config.display_match_groups()
+                       puts "The following match groups are available through your config files:"
+                       if config
+                           config.display_match_groups()
+                       else
+                           puts "  * default"
+                       end
                        return 1
                    end
     

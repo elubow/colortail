@@ -1,3 +1,7 @@
+### colortail 0.1.5 2010-04-21
+
+ * BUGFIX: Fixed crash on non-existant config file (#2)
+
 ### colortail 0.1.4 2010-04-21
 
  * CTRL-C now properly caught
