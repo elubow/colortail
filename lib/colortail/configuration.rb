@@ -33,6 +33,13 @@ module ColorTail
             end
             return colorset
         end
+
+        def display_match_groups()
+            puts "The following match groups are available through your config files:"
+            Groupings.each_key do |group|
+                puts "  * #{group}"
+            end
+        end
     end
 
     class ComplexRecord < StandardError
@@ -52,17 +59,22 @@ module ColorTail
             
             require 'optparse'
             @opts = OptionParser.new do |o|
-                o.banner = "Usage: #{File.basename($0)} <file>"
+                o.banner = "Usage: #{File.basename($0)} <file1> <file2> ..."
             
                 options[:group] = 'default'
                 o.on( '-g', '--group <group>', 'Specify the color grouping to use for these files' ) do |group|
                     options[:group] = group
                 end
 
+                options[:list] = false
+                o.on( '-l', '--list', 'List all the available color groupings' ) do |group|
+                    options[:list] = true
+                end
+
                 o.separator ""
             
                 options[:conf] = "#{user_home}/.colortailrc"
-                o.on( '-c', '--conf <FILE>', 'Specify an alternate config file' ) do |file|
+                o.on( '-c', '--conf <file>', 'Specify an alternate config file' ) do |file|
                     if File.exists?(file)
                         options[:conf] = file
                     else

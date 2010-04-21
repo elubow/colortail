@@ -25,7 +25,13 @@ module ColorTail
                        @match_group = config.load_opts(options[:group])
                    else
                        # Create this to ensure we always have a value for this array
-                       @match_group = Array.new
+                       @match_group = Array.push( 'default' => [] )
+                   end
+
+                   # Display the list of available groups and exit
+                   if options[:list]
+                       config.display_match_groups()
+                       return 1
                    end
     
                    logger = ColorTail::Colorize.new()
