@@ -60,7 +60,7 @@ The command below will tail the **/var/log/messages** file using the syslog grou
 
 ColorTail intentionally does not die when a file specified on the command line doesn't exist.
 
-## Additionial Information ##
+## Additional Information ##
 
   * Homepage: [http://www.codaset.com/elubow/colortail](http://www.codaset.com/elubow/colortail)
   * Wiki: [Home](http://www.codaset.com/elubow/colortail/wiki)
