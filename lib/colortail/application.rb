@@ -13,10 +13,28 @@ module ColorTail
                    options[:help] = true
                end
     
-               if options[:help]
+               # Show the help menu if desired
+               if options[:help] or files.size == 0
                    $stderr.puts opt.opts
                    return 1
                end
+
+               # Before we go any further, check for existance of files
+               @files_exist = false
+               files.each do |file|
+                   if File.exists?(file)
+                       @files_exist = true
+                       break
+                   end
+               end
+
+               # If we have no files, tell them and show the help
+               unless @files_exist
+                   $stderr.puts "Please check to make sure the files exist ..."
+                   $stderr.puts opt.opts
+                   return 1
+               end
+
     
                begin
                    # Read the config file if it exists
