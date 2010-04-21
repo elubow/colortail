@@ -31,7 +31,7 @@ The full list of choices for colors and combinations are listed below.
  * blue
  * magenta - (purple-ish)
  * cyan
- * white
+ * light gray
 
 #### Attributes ####
 
@@ -41,6 +41,19 @@ The full list of choices for colors and combinations are listed below.
  * blink
  * reverse
  * hidden - simply don't show the text
+
+#### Additional Colors ####
+
+To get the additional colorset listed below, use the **bright** attribute.
+
+ * dark gray (bright black)
+ * light blue (bright blue)
+ * light green (bright green)
+ * light cyan (bright cyan)
+ * light red (bright red)
+ * light purple (bright purle)
+ * yellow (bright brown)
+ * white (bright light gray)
 
 ### Configuration Example ###
 

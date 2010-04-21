@@ -2,6 +2,7 @@
 
  * CTRL-C now properly caught
  * Threads are now cleaned properly
+ * List available groupings from the command line
 
 ### colortail 0.1.3 2010-04-19
 
