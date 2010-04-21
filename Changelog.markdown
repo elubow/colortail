@@ -1,4 +1,9 @@
-### colortail 0.1.2 2010-04-19
+### colortail 0.1.4 2010-04-21
+
+ * CTRL-C now properly caught
+ * Threads are now cleaned properly
+
+### colortail 0.1.3 2010-04-19
 
  * BUGFIX: Ensure config file exists before sourcing it
 
