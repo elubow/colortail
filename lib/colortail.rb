@@ -30,7 +30,13 @@ module ColorTail
             :hidden => 8
         }
     
-        @@color_matchers = []
+        attr_accessor :color_matchers
+
+        def initialize()
+            # This is an instance variable in case we tail
+            # multiple files with different groupings
+            @color_matchers = Array.new
+        end
 
         def log(filename, message, line_prefix=nil)
             # Add the filename to the message
@@ -39,7 +45,7 @@ module ColorTail
             color = :none
             attribute = nil
 
-            @@color_matchers.each do |filter|
+            @color_matchers.each do |filter|
                 if message =~ filter[:match]
                         color = filter[:color]
                         attribute = filter[:attribute]
@@ -67,7 +73,7 @@ module ColorTail
         end
 
         def add_color_matcher( options )
-            @@color_matchers.push( options )
+            @color_matchers.push( options )
         end
     end
 
