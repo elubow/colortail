@@ -21,6 +21,9 @@ module TestColortail
           setup do
               ARGV.clear
           end
+          
+          should "show the help menu" do
+          end
       end
 
       context "With no files and -h option" do
@@ -63,6 +66,14 @@ module TestColortail
         should "show a line with 'filename:' as a prefix" do
             @logger.show('My test line', 'filename:')
             assert_equal $stdout.string, "filename:My test line\n"
+        end
+        
+        should "add nothing to the color matchers class variable with an empty match group" do
+            match_group = Array.new
+            assert_equal match_group, @logger.color_matchers
+            match_group.push( 'default' => [] )
+            @logger.add_color_matcher( 'default' => [] )
+            assert_equal match_group, @logger.color_matchers
         end
       end
 
