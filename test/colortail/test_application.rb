@@ -16,20 +16,35 @@ module TestColortail
           $stdout = @stdout_orig
       end
 
-      should "" do
-        assert 1
+      context "" do
+        setup do
+          @stderr_orig = $stderr
+          $stderr = StringIO.new
+        end
+        
+        teardown do
+          $stderr = @stderr_orig
+        end
+        
+         should "kill all threads and exit cleanly with the word 'Terminating...'" do
+           threads = Array.new
+           threads.push(Thread.new { sleep }, Thread.new { sleep })
+           assert_equal 2, threads.size
+           assert_equal "sleep", threads[0].status
+           assert_equal "sleep", threads[1].status
+           begin
+             ColorTail::Application.thread_cleanup(threads)
+           rescue SystemExit => e
+             assert_equal "Terminating...\n", $stderr.string
+             assert_equal 0, e.status
+           end
+           assert_equal false, threads[0].status
+           assert_equal false, threads[1].status
+         end
       end
-#     should "kill all threads" do
-#       threads = Array.new
-#       threads.push(Thread.new { sleep }, Thread.new { sleep })
-#       assert_equal 2, threads.size
-#       assert_equal "sleep", threads[0].status
-#       assert_equal "sleep", threads[1].status
-#       thread_cleanup(threads)
-#       assert_equal false, threads[0].status
-#       assert_equal false, threads[1].status
-#     end
+      
     end
+    
   end
-  
+
 end
