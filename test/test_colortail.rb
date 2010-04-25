@@ -52,7 +52,7 @@ module TestColortail
         setup do
           @logger = ColorTail::Colorize.new()
         end
-
+        
         should "be a valid logger class" do
             @class = @logger.class
             assert_equal @class, ColorTail::Colorize
@@ -74,6 +74,22 @@ module TestColortail
             match_group.push( 'default' => [] )
             @logger.add_color_matcher( 'default' => [] )
             assert_equal match_group, @logger.color_matchers
+        end
+        
+        context "and an empty match group" do
+          setup do
+            @logger.add_color_matcher( 'default' => [] )
+          end
+
+          should "say 'My test line' with no prefix" do
+            @logger.log('testfile','My test line')
+            assert_equal $stdout.string, "\e[0mMy test line\e[0m\n"
+          end
+
+          should "say 'My test line' with 'testfile: ' as the prefix" do
+            @logger.log('testfile','My test line','testfile: ')
+            assert_equal $stdout.string, "\e[0mtestfile:\e[0m\e[0mMy test line\e[0m\n"
+          end
         end
       end
 
