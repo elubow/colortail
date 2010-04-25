@@ -92,13 +92,13 @@ module ColorTail
 
                # If we get a CTRL-C, catch it (rescue) and send it for cleanup
                rescue Interrupt
-                   cleanup(threads)
+                   thread_cleanup(threads)
                end
 
                return 0
             end
 
-            def cleanup(threads)
+            def thread_cleanup(threads)
                 threads.each do |thread|
                     thread.kill
                 end
@@ -106,6 +106,9 @@ module ColorTail
                 exit
             end
         end
+    end
+
+    class Cleanup
     end
 
 
