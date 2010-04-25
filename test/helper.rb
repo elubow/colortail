@@ -7,4 +7,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'colortail'
 
 class Test::Unit::TestCase
+  
+  class TestNotImplemented < StandardError
+  end
+  
 end
