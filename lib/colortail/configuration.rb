@@ -6,7 +6,7 @@ module ColorTail
             if File.exists?(conf)
                 @config = File.read(conf)
             else
-                raise FileDoesNotExist, "Config file #{file} cannot be found."
+                raise FileDoesNotExist, "Config file #{@config_file} cannot be found."
             end
         end
 
