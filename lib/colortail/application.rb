@@ -14,28 +14,13 @@ module ColorTail
                end
     
                # Show the help menu if desired
-               if options[:help] or files.size == 0
+               if options[:help]
                    $stderr.puts opt.opts
                    return 1
                end
 
-               # Before we go any further, check for existance of files
-               @files_exist = false
-               files.each do |file|
-                   if File.exists?(file)
-                       @files_exist = true
-                       break
-                   end
-               end
-
-               # If we have no files, tell them and show the help
-               unless @files_exist
-                   $stderr.puts "Please check to make sure the files exist ..."
-                   $stderr.puts opt.opts
-                   return 1
-               end
-
-    
+   
+               # The meat of the program
                begin
                    # Read the config file if it exists
                    if File.exists?(options[:conf])
@@ -58,7 +43,23 @@ module ColorTail
                        return 1
                    end
     
-                   logger = ColorTail::Colorize.new()
+                   # Before we go any further, check for existance of files
+                   @files_exist = false
+                   files.each do |file|
+                       if File.exists?(file)
+                           @files_exist = true
+                           break
+                       end
+                   end
+    
+                   # If we have no files, tell them and show the help
+                   unless @files_exist
+                       $stderr.puts "Please check to make sure the files exist ..."
+                       $stderr.puts opt.opts
+                       return 1
+                   end
+
+                    logger = ColorTail::Colorize.new()
 
                    # Add the color match array if we aren't using the default
                    if @match_group.class == Array
