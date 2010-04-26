@@ -16,38 +16,6 @@ module TestColortail
           $stdout = @stdout_orig
       end
 
-
-      context "With no options or files" do
-          setup do
-              ARGV.clear
-          end
-          
-          should "show the help menu" do
-          end
-      end
-
-      context "With no files and -h option" do
-          setup do
-              ARGV.clear
-              ARGV.push("-h")
-          end
-          
-          should "show the help menu" do
-          end
-      end
-
-      context "With 1 file" do
-          setup do
-              ARGV.clear
-              @tmp_root = File.dirname(__FILE__) + "/../tmp"
-
-          end
-
-          teardown do
-              FileUtils.rm_rf @tmp_root
-          end
-      end
-
       context "With valid logger class" do
         setup do
           @logger = ColorTail::Colorize.new()

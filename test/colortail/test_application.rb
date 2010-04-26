@@ -25,6 +25,42 @@ module TestColortail
         teardown do
           $stderr = @stderr_orig
         end
+
+         
+         context "With no options or files" do
+             setup do
+                 ARGV.clear
+             end
+
+             should "show the help menu" do
+               ColorTail::Application.run!(*ARGV)
+               assert_match "Usage:", $stderr.string
+             end
+         end
+
+         context "With '-h' option and no files" do
+             setup do
+                 ARGV.clear
+                 ARGV.push("-h")
+             end
+
+             should "show the help menu" do
+               ColorTail::Application.run!(*ARGV)
+               assert_match "Usage:", $stderr.string
+             end
+         end
+
+         context "With non-existant option and no files" do
+             setup do
+                 ARGV.clear
+                 ARGV.push("-zdfkjlsd")
+             end
+
+             should "show the help menu" do
+               ColorTail::Application.run!(*ARGV)
+               assert_match "invalid option:", $stderr.string
+             end
+         end
         
          should "kill all threads and exit cleanly with the word 'Terminating...'" do
            threads = Array.new
