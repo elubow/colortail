@@ -93,6 +93,9 @@ module ColorTail
                 self[:options] = options
             rescue OptionParser::InvalidOption => e
                 self[:invalid_argument] = e.message
+                @opts.parse(args, flags={ :delete_invalid_opts => true })
+                self[:files] = args
+                self[:options] = options
             end
         end
     end

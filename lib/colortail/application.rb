@@ -8,8 +8,8 @@ module ColorTail
                options = opt[:options]
     
                # Deal with any/all options issues
-               if options[:invalid_argument]
-                   $stderr.puts options[:invalid_argument]
+               if opt[:invalid_argument]
+                   $stderr.puts opt[:invalid_argument]
                    options[:help] = true
                end
     
