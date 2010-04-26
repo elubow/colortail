@@ -15,7 +15,8 @@ module ColorTail
                 if groupings.has_key?( group )
                     return groupings[group]
                 else
-                    raise ComplexRecord, "No such group '#{group}' in config file"
+                    $stderr.puts "No such group '#{group}', falling back to default."
+                    return "'default' => []"
                 end
             else
                 raise ComplexRecord, "Config file syntax error"
