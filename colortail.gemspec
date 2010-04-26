@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{colortail}
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Eric Lubow"]
-  s.date = %q{2010-04-21}
+  s.date = %q{2010-04-26}
   s.default_executable = %q{colortail}
   s.description = %q{Tail a file and color lines based on regular expressions within that line. By setting up multiple expression and color groups in the configuration file, you can apply highlighting to a file while its being tailed.}
   s.email = %q{eric@lubow.org}
@@ -33,6 +33,8 @@ Gem::Specification.new do |s|
      "lib/colortail.rb",
      "lib/colortail/application.rb",
      "lib/colortail/configuration.rb",
+     "test/colortail/test_application.rb",
+     "test/colortail/test_configuration.rb",
      "test/helper.rb",
      "test/test_colortail.rb"
   ]
@@ -42,7 +44,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Tail a file and color lines based on regular expressions within that line}
   s.test_files = [
-    "test/helper.rb",
+    "test/colortail/test_application.rb",
+     "test/colortail/test_configuration.rb",
+     "test/helper.rb",
      "test/test_colortail.rb",
      "examples/colortail.rb"
   ]

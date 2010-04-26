@@ -1,3 +1,7 @@
+### colortail 0.1.6 2010-04-26
+
+ * BUGFIX: Lots of bugfixes as a result of finally adding testing
+
 ### colortail 0.1.5 2010-04-21
 
  * BUGFIX: Fixed crash on non-existant config file (#2)
