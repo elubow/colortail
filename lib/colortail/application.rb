@@ -59,7 +59,7 @@ module ColorTail
                        return 1
                    end
 
-                    logger = ColorTail::Colorize.new()
+                   logger = ColorTail::Colorize.new()
 
                    # Add the color match array if we aren't using the default
                    if @match_group.class == Array
