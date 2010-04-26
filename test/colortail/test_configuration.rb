@@ -47,7 +47,7 @@ module TestColortail
           assert_not_nil @opt[:options][:conf]
         end
       end
-        
+      
       should "raise FileDoesNotExist error on non-existant config file" do
         ARGV.clear
         config_file = String.new
@@ -78,6 +78,38 @@ module TestColortail
           config_file = String.new
           assert_raise( ColorTail::FileDoesNotExist ) { @config = ColorTail::Configuration.new(config_file) }
       end
+      
+      context "With a valid configuration instance" do
+        setup do
+          @stderr_orig = $stderr
+          $stderr = StringIO.new
+          
+          @config_file = File.join(File.dirname(__FILE__), '..', '..', 'examples', 'colortail.rb')
+          
+          @config = ColorTail::Configuration.new("#{@config_file}")
+        end
+        
+        teardown do
+          $stderr = @stderr_orig
+        end
+        
+        should "be a valid configuration instance" do
+          assert_equal @config.class, ColorTail::Configuration
+        end
+        
+        should "fallback to 'default' grouping when a non-existent match_group is specified" do
+          @match_group = @config.load_opts('doesNotExist')
+          assert_match "No such group '", $stderr.string
+          assert_equal @match_group, "'default' => []"
+        end
+        
+        should "display match groups" do
+          @match_group = @config.load_opts('default')
+          @config.display_match_groups()
+          assert_match "  * ", $stdout.string
+        end
+      end
+      
 
     end
   end
