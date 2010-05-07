@@ -81,6 +81,10 @@ module ColorTail
                         raise FileDoesNotExist, "Config file #{file} cannot be found."
                     end
                 end
+                
+                o.on('-V', '--version', "Display version information") do
+                    options[:version] = true
+                end
 
                 options[:help] = false
                 o.on_tail( '-h', '--help', 'Display this help screen' ) do

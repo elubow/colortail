@@ -2,6 +2,11 @@ module ColorTail
 
     class Application
         class << self
+            def version
+                version = File.read("#{File.join(File.dirname(__FILE__), '..')}/../VERSION").chomp!
+                "#{File.basename($0)} v#{version}"
+            end
+            
             def run!(*arguments)
                opt = ColorTail::Options.new(arguments) 
                files = opt[:files]
@@ -15,7 +20,14 @@ module ColorTail
     
                # Show the help menu if desired
                if options[:help]
+                   $stderr.puts version()
                    $stderr.puts opt.opts
+                   return 1
+               end
+               
+               # Show the version
+               if options[:version]
+                   $stderr.puts version()
                    return 1
                end
 
