@@ -12,6 +12,7 @@ module ColorTail
 
         def colorit(group, groupings)
             if groupings.class == Hash
+                groupings["default"] = [] unless groupings.has_key?('default')
                 if groupings.has_key?( group )
                     return groupings[group]
                 else
