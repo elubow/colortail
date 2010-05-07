@@ -38,6 +38,18 @@ module TestColortail
              end
          end
 
+         context "With '-V' option and no files" do
+             setup do
+                 ARGV.clear
+                 ARGV.push("-V")
+             end
+
+             should "show the version string" do
+               ColorTail::Application.run!(*ARGV)
+               assert_match /.*\ v/, $stderr.string
+             end
+         end
+
          context "With '-h' option and no files" do
              setup do
                  ARGV.clear
