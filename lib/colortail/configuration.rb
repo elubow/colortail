@@ -66,6 +66,11 @@ module ColorTail
                 o.on( '-g', '--group <group>', 'Specify the color grouping to use for these files' ) do |group|
                     options[:group] = group
                 end
+                
+                options[:filename_prefix] = false
+                o.on( '-F', '--filename_prefix', 'Prefix each colored line with it\'s filename') do
+                    options[:filename_prefix] = true
+                end
 
                 options[:list] = false
                 o.on( '-l', '--list', 'List all the available color groupings' ) do |group|

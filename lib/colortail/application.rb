@@ -77,10 +77,13 @@ module ColorTail
                    
                    begin
                        threads[0] = Thread.new {
-                           STDIN.fcntl(Fcntl::F_SETFL,Fcntl::O_NONBLOCK)
                            begin
                                $stdin.each_line do |line|
-                                   logger.log( nil, line )
+                                   if options[:filename_prefix]
+                                       logger.log( nil, line, "STDIN: " )
+                                   else
+                                       logger.log( nil, line )
+                                   end
                                end
                            rescue Errno::EAGAIN
                                # Remove this thread since we won't be reading from $stdin
@@ -119,15 +122,21 @@ module ColorTail
                                    tailer.backward( 10 )
 
                                    # Tail the file and show new lines
-                                   tailer.tail { |line|  logger.log( file, line ) }
-                               }
-                               threads[files.index(file)].run
+                                   tailer.tail do |line|
+                                       if options[:filename_prefix]
+                                           logger.log( file, line, "#{file}: ")
+                                       else
+                                           logger.log( file, line )
+                                       end
+                                   end
+                               }.run
                            end
                        end
                        
                    end
 
                    # Let the threads do their real work
+                   puts "Threads: #{threads.inspect}"
                    threads.each do |thread|
                        thread.join
                    end
