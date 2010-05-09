@@ -60,7 +60,7 @@ module ColorTail
             
             require 'optparse'
             @opts = OptionParser.new do |o|
-                o.banner = "Usage: #{File.basename($0)} <file1> <file2> ..."
+                o.banner = "Usage: #{File.basename($0)} <file1> <file2> ... \n       cat <file1> | #{File.basename($0)}"
             
                 options[:group] = 'default'
                 o.on( '-g', '--group <group>', 'Specify the color grouping to use for these files' ) do |group|

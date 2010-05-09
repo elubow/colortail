@@ -8,6 +8,8 @@ module ColorTail
             end
             
             def run!(*arguments)
+               require 'fcntl'
+                
                opt = ColorTail::Options.new(arguments) 
                files = opt[:files]
                options = opt[:options]
@@ -54,23 +56,8 @@ module ColorTail
                        end
                        return 1
                    end
-    
-                   # Before we go any further, check for existance of files
-                   @files_exist = false
-                   files.each do |file|
-                       if File.exists?(file)
-                           @files_exist = true
-                           break
-                       end
-                   end
-    
-                   # If we have no files, tell them and show the help
-                   unless @files_exist
-                       $stderr.puts "Please check to make sure the files exist ..."
-                       $stderr.puts opt.opts
-                       return 1
-                   end
-
+                   
+                   # Create the logging object
                    logger = ColorTail::Colorize.new()
 
                    # Add the color match array if we aren't using the default
@@ -81,21 +68,63 @@ module ColorTail
                    else
                        logger.add_color_matcher( @match_group )
                    end
-    
-                   # Create a thread for each file
-                   threads = []
-                   files.each do |file|
-                       threads[files.index(file)] = Thread.new {
-                           tailer = ColorTail::TailFile.new( file )
-    
-                           # First display the last 10 lines of each file in ARGV
-                           tailer.interval = 10
-                           tailer.backward( 10 )
-    
-                           # Tail the file and show new lines
-                           tailer.tail { |line|  logger.log( file, line ) }
-                       }
-                       threads[files.index(file)].run
+                   
+                   # Create an empty array of threads
+                   threads = Array.new
+                   
+                   # Set $stdin to be non-blocking
+                   $stdin.fcntl(Fcntl::F_SETFL,Fcntl::O_NONBLOCK)
+                   
+                   begin
+                       threads[0] = Thread.new {
+                           STDIN.fcntl(Fcntl::F_SETFL,Fcntl::O_NONBLOCK)
+                           begin
+                               $stdin.each_line do |line|
+                                   logger.log( nil, line )
+                               end
+                           rescue Errno::EAGAIN
+                               # Remove this thread since we won't be reading from $stdin
+                               threads.delete(0)
+                           end
+                       }.run
+                       
+                       # Check to see if there are files in the files array
+                       if files.size > 0
+                           # Before we go any further, check for existance of files
+                           @files_exist = false
+                           files.each do |file|
+                               # Check for individual files and ignore file if doesn't exist
+                               if File.exists?(file)
+                                   @files_exist = true
+                               else
+                                   $stderr.puts("#{file} does not exist, skipping...")
+                                   files.delete(file)
+                               end
+                           end
+                           
+                           # If we have no files, tell them and show the help
+                           if !@files_exist and (threads.class == Array.class and threads.size <= 2)
+                               $stderr.puts "Please check to make sure the files exist ..."
+                               $stderr.puts opt.opts
+                               return 1
+                           end
+                           
+                           # Create a thread for each file
+                           files.each do |file|
+                               threads.push Thread.new {
+                                   tailer = ColorTail::TailFile.new( file )
+
+                                   # First display the last 10 lines of each file in ARGV
+                                   tailer.interval = 10
+                                   tailer.backward( 10 )
+
+                                   # Tail the file and show new lines
+                                   tailer.tail { |line|  logger.log( file, line ) }
+                               }
+                               threads[files.index(file)].run
+                           end
+                       end
+                       
                    end
 
                    # Let the threads do their real work
@@ -105,15 +134,22 @@ module ColorTail
 
                # If we get a CTRL-C, catch it (rescue) and send it for cleanup
                rescue Interrupt
-                   thread_cleanup(threads)
+                   thread_cleanup(threads) if defined? threads
+               rescue NoInputError
+                   $stderr.puts "Please enter a file to tail..."
+                   $stderr.puts opt.opts
+                   return 1
                end
 
+               # We should never make it here, but just in case...
                return 0
             end
 
             def thread_cleanup(threads)
-                threads.each do |thread|
-                    thread.kill
+                if threads.class == Array.class and threads.size > 0
+                    threads.each do |thread|
+                        thread.kill
+                    end
                 end
                 $stderr.puts "Terminating..."
                 exit
@@ -124,6 +160,9 @@ module ColorTail
     class Cleanup
     end
 
+
+    class NoInputError < StandardError
+    end
 
     class FileDoesNotExist < StandardError
     end
