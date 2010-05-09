@@ -1,6 +1,7 @@
-### colortail 0.1.6 2010-05-10
+### colortail 0.1.7 2010-05-10
 
  * FEATURE: Can now pipe input into colortail
+ * FEATURE: Filename prefixes are now available (-F)
 
 ### colortail 0.1.6 2010-04-26
 

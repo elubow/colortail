@@ -65,9 +65,17 @@ Using ColorTail is similar to using tail. The main assumption is that you will a
 
 #### Tailing with groups
 
-The command below will tail the **/var/log/messages** file using the syslog group. The example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb) shows a _syslog_ grouping that is used in command below:
+The command below will tail the **/var/log/messages** file using the syslog group. The example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb) shows a _syslog_ grouping that is used in command below (the below 2 commands are equivilent):
 
    # colortail -g syslog /var/log/messages
+   # cat /var/log/messages | colortail -g syslog
+
+#### Tailing multiple files
+
+To tail multiple files can be confusing, especially when you don't know which file you are seeing. Use the **-F** option to show the filenames at the beginning of each colored line.
+
+   # colortail -F -g syslog /var/log/messages /var/log/secure.log
+
 
 ## Caveats and Intended Behaviors ##
 
