@@ -1,3 +1,7 @@
+### colortail 0.1.6 2010-05-10
+
+ * FEATURE: Can now pipe input into colortail
+
 ### colortail 0.1.6 2010-04-26
 
  * BUGFIX: Lots of bugfixes as a result of finally adding testing
