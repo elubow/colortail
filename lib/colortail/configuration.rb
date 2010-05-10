@@ -61,7 +61,7 @@ module ColorTail
             
             require 'optparse'
             @opts = OptionParser.new do |o|
-                o.banner = "Usage: #{File.basename($0)} <file1> <file2> ... \n       cat <file1> | #{File.basename($0)}"
+                o.banner = "Usage: #{File.basename($0)} <file1> <file2> ..."
             
                 options[:group] = 'default'
                 o.on( '-g', '--group <group>', 'Specify the color grouping to use for these files' ) do |group|
@@ -94,9 +94,20 @@ module ColorTail
                 end
 
                 options[:help] = false
-                o.on_tail( '-h', '--help', 'Display this help screen' ) do
+                o.on( '-h', '--help', 'Display this help screen' ) do
                     options[:help] = true
                 end
+                
+                o.separator ""
+                o.separator "Examples:"
+                o.separator "  Tail messages and mail log through STDIN with syslog group:"
+                o.separator "    cat /var/log/maillog | #{File.basename($0)} -g syslog /var/log/messages"
+
+                o.separator "  Tail messages with syslog group and maillog with mail group:"
+                o.separator "    #{File.basename($0)} /var/log/messages#syslog /var/log/messages#mail"
+
+                o.separator "  Tail messages with syslog group and maillog with mail group with line prefix:"
+                o.separator "    #{File.basename($0)} -F /var/log/messages#syslog /var/log/messages#mail"
             end
 
             begin
