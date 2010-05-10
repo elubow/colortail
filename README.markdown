@@ -76,6 +76,12 @@ To tail multiple files can be confusing, especially when you don't know which fi
 
    # colortail -F -g syslog /var/log/messages /var/log/secure.log
 
+#### Tailing multiple files using different color groups
+
+You can also tail multiple files using different color groups. Currently, the separater is *#*. If no grouping is specified with the file or the grouping specified doesn't exist, colortail will default to the one specied on the command line.
+
+   # colortail /var/log/messages#syslog /var/log/secure.log#otherlog
+   # colortail -g syslog /var/log/messags#nosuchgroup /var/log/secure.log#secure
 
 ## Caveats and Intended Behaviors ##
 

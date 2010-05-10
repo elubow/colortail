@@ -1,7 +1,9 @@
 ### colortail 0.1.7 2010-05-10
 
- * FEATURE: Can now pipe input into colortail
- * FEATURE: Filename prefixes are now available (-F)
+ * FEATURE: Color groupings can now be applied on a per file basis (#10)
+ * FEATURE: Can now pipe input into colortail (#7)
+ * FEATURE: Filename prefixes are now available (-F) (#9)
+ * BUGFIX: Removed "No such group" on match listing (#5)
 
 ### colortail 0.1.6 2010-04-26
 
