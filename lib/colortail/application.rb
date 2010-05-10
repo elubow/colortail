@@ -11,7 +11,7 @@ module ColorTail
                require 'fcntl'
                 
                opt = ColorTail::Options.new(arguments) 
-               files = opt[:files]
+               filelist = opt[:files]
                options = opt[:options]
     
                # Deal with any/all options issues
@@ -39,11 +39,11 @@ module ColorTail
                    # Read the config file if it exists
                    if File.exists?(options[:conf])
                        config = ColorTail::Configuration.new(options[:conf])
-                       @match_group = config.load_opts(options[:group])
+                       match_group = config.load_opts(options[:group])
                    else
                        # Create this to ensure we always have a value for this array
-                       @match_group = Array.new
-                       @match_group.push( 'default' => [] )
+                       match_group = Array.new
+                       match_group.push( 'default' => [] )
                    end
 
                    # Display the list of available groups and exit
@@ -57,16 +57,16 @@ module ColorTail
                        return 1
                    end
                    
-                   # Create the logging object
+                   # Create the default logging object
                    logger = ColorTail::Colorize.new()
 
                    # Add the color match array if we aren't using the default
-                   if @match_group.class == Array
-                       @match_group.each do |matcher|
+                   if match_group.class == Array
+                       match_group.each do |matcher|
                            logger.add_color_matcher( matcher )
                        end
                    else
-                       logger.add_color_matcher( @match_group )
+                       logger.add_color_matcher( match_group )
                    end
                    
                    # Create an empty array of threads
@@ -92,16 +92,26 @@ module ColorTail
                        }.run
                        
                        # Check to see if there are files in the files array
-                       if files.size > 0
+                       if filelist.size > 0
                            # Before we go any further, check for existance of files
                            @files_exist = false
-                           files.each do |file|
+                           files = Hash.new
+                           filelist.each do |file|
+                               filename = String.new
+                               group = String.new
+                               filename,group = file.split('#')
+                               if group.nil?
+                                   files[filename] = options[:group]
+                               else
+                                   files[filename] = group
+                               end
+                               
                                # Check for individual files and ignore file if doesn't exist
-                               if File.exists?(file)
+                               if File.exists?(filename)
                                    @files_exist = true
                                else
-                                   $stderr.puts("#{file} does not exist, skipping...")
-                                   files.delete(file)
+                                   $stderr.puts("#{filename} does not exist, skipping...")
+                                   filelist.delete(file)
                                end
                            end
                            
@@ -113,9 +123,32 @@ module ColorTail
                            end
                            
                            # Create a thread for each file
-                           files.each do |file|
+                           files.each_pair do |filename, grouping|
                                threads.push Thread.new {
-                                   tailer = ColorTail::TailFile.new( file )
+                                   # Figure out if grouping exists, if not fall back to global default
+                                   if config.group_exists?(grouping)
+                                       # Create a new per file logger object per file
+                                       file_logger = ColorTail::Colorize.new()
+                                       
+                                       # Redefine match_group since we have a new grouping
+                                       match_group = config.load_opts(grouping)
+                                       
+                                       # Add the color match array if we aren't using the default
+                                       if match_group.class == Array
+                                           match_group.each do |matcher|
+                                               file_logger.add_color_matcher( matcher )
+                                           end
+                                       else
+                                           file_logger.add_color_matcher( match_group )
+                                       end
+                                       
+                                   # There is no such group, so we fall back to the default here
+                                   else
+                                       file_logger = logger
+                                   end
+                                   
+                                   # Create the new tailer object
+                                   tailer = ColorTail::TailFile.new( filename )
 
                                    # First display the last 10 lines of each file in ARGV
                                    tailer.interval = 10
@@ -124,9 +157,9 @@ module ColorTail
                                    # Tail the file and show new lines
                                    tailer.tail do |line|
                                        if options[:filename_prefix]
-                                           logger.log( file, line, "#{file}: ")
+                                           file_logger.log( filename, line, "#{filename}: ")
                                        else
-                                           logger.log( file, line )
+                                           file_logger.log( filename, line )
                                        end
                                    end
                                }.run
@@ -136,7 +169,6 @@ module ColorTail
                    end
 
                    # Let the threads do their real work
-                   puts "Threads: #{threads.inspect}"
                    threads.each do |thread|
                        thread.join
                    end

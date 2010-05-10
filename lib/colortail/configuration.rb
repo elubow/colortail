@@ -4,17 +4,17 @@ module ColorTail
         def initialize(conf)
             @config_file = conf
             if File.exists?(conf)
-                @config = File.read(conf)
+                load @config_file
             else
                 raise FileDoesNotExist, "Config file #{@config_file} cannot be found."
             end
         end
 
-        def colorit(group, groupings)
-            if groupings.class == Hash
-                groupings["default"] = [] unless groupings.has_key?('default')
-                if groupings.has_key?( group )
-                    return groupings[group]
+        def colorit(group)
+            if Groupings.class == Hash
+                Groupings["default"] = [] unless Groupings.has_key?('default')
+                if Groupings.has_key?( group )
+                    return Groupings[group]
                 else
                     $stderr.puts "No such group '#{group}', falling back to default."
                     return "'default' => []"
@@ -28,11 +28,8 @@ module ColorTail
         # isn't available in the configuration object until after a new object
         # has been instantiated.
         def load_opts(group)
-            colorset = []
-            if File.exists?(@config_file)
-                load @config_file
-                colorset = self.colorit( group, Groupings )
-            end
+            colorset = Array.new
+            colorset = self.colorit( group )
             return colorset
         end
 
@@ -40,6 +37,10 @@ module ColorTail
             Groupings.each_key do |group|
                 puts "  * #{group}"
             end
+        end
+        
+        def group_exists?(key)
+            Groupings.has_key?(key) ? true : false
         end
     end
 
