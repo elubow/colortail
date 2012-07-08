@@ -15,7 +15,7 @@ By default, ColorTail does absolutely nothing other than just tail a file normal
 
 ## Conifguring ColorTail ##
 
-Configuring ColorTail is easy.  In your home directory, create a file .colortailrc.  This file will contain a group of ruby arrays similar to the ones laid out in the example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb).  These arrays are called groups.  Any group can be loaded via the command line using the **-g** switch (more on this below).
+Configuring ColorTail is easy.  In your home directory, create a file .colortailrc.  This file will contain a group of ruby arrays similar to the ones laid out in the example config [examples/colortail.rb](https://github.com/elubow/colortail/blob/master/examples/colortail.rb).  These arrays are called groups.  Any group can be loaded via the command line using the **-g** switch (more on this below).
 
 The standard configuration file is **.colortailrc**.  It needs to be in the format of a Ruby hash.
 
@@ -67,21 +67,21 @@ Using ColorTail is similar to using tail. The main assumption is that you will a
 
 The command below will tail the **/var/log/messages** file using the syslog group. The example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb) shows a _syslog_ grouping that is used in command below (the below 2 commands are equivilent):
 
-   # colortail -g syslog /var/log/messages   
-   # cat /var/log/messages | colortail -g syslog   
+   # colortail -g syslog /var/log/messages
+   # cat /var/log/messages | colortail -g syslog
 
 #### Tailing multiple files
 
 To tail multiple files can be confusing, especially when you don't know which file you are seeing. Use the **-F** option to show the filenames at the beginning of each colored line.
 
-   # colortail -F -g syslog /var/log/messages /var/log/secure.log   
+   # colortail -F -g syslog /var/log/messages /var/log/secure.log
 
 #### Tailing multiple files using different color groups
 
 You can also tail multiple files using different color groups. Currently, the separater is *#*. If no grouping is specified with the file or the grouping specified doesn't exist, colortail will default to the one specied on the command line.
 
-   # colortail /var/log/messages#syslog /var/log/secure.log#otherlog   
-   # colortail -g syslog /var/log/messags#nosuchgroup /var/log/secure.log#secure   
+   # colortail /var/log/messages#syslog /var/log/secure.log#otherlog
+   # colortail -g syslog /var/log/messags#nosuchgroup /var/log/secure.log#secure
 
 ## Caveats and Intended Behaviors ##
 
@@ -89,8 +89,7 @@ ColorTail intentionally does not die when a file specified on the command line d
 
 ## Additional Information ##
 
-  * Homepage: [http://www.codaset.com/elubow/colortail](http://www.codaset.com/elubow/colortail)
-  * Wiki: [Home](http://www.codaset.com/elubow/colortail/wiki)
+  * Homepage: [https://github.com/elubow/colortail](https://github.com/elubow/colortail)
 
 ## Author ##
 
@@ -100,7 +99,7 @@ Eric Lubow &lt;eric at lubow dot org&gt;
   * Twitter: [elubow](http://twitter.com/elubow)
 
 ## Note on Patches/Pull Requests
- 
+
   * Fork the project.
   * Make your feature addition or bug fix.
   * Add tests for it. This is important so I don't break it in a
