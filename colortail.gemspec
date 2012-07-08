@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
      "test/helper.rb",
      "test/test_colortail.rb"
   ]
-  s.homepage = %q{http://codaset.com/elubow/colortail}
+  s.homepage = %q{https://github.com/elubow/colortail}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}

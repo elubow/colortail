@@ -57,7 +57,7 @@ To get the additional colorset listed below, use the **bright** attribute.
 
 ### Configuration Example ###
 
-The example given in the configuration file is good for tailing a syslog file that has lines that are naemd with their syslog level. There are a lot of potential uses.  Check the wiki page of [example groupings](http://www.codaset.com/elubow/colortail/wiki/example-groupings) to see how others are using ColorTail.
+The example given in the configuration file is good for tailing a syslog file that has lines that are naemd with their syslog level. There are a lot of potential uses.
 
 ## Usage ##
 
@@ -65,7 +65,7 @@ Using ColorTail is similar to using tail. The main assumption is that you will a
 
 #### Tailing with groups
 
-The command below will tail the **/var/log/messages** file using the syslog group. The example config [examples/colortail.rb](http://www.codaset.com/elubow/colortail/source/master/blob/examples/colortail.rb) shows a _syslog_ grouping that is used in command below (the below 2 commands are equivilent):
+The command below will tail the **/var/log/messages** file using the syslog group. The example config [examples/colortail.rb](https://github.com/elubow/colortail/blob/master/examples/colortail.rb) shows a _syslog_ grouping that is used in command below (the below 2 commands are equivilent):
 
    # colortail -g syslog /var/log/messages
    # cat /var/log/messages | colortail -g syslog
